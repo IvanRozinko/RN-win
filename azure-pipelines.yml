@@ -14,7 +14,7 @@ variables:
   solution: 'windows/*.sln'
   buildPlatform: 'x64'
   buildConfiguration: 'Release'
-  appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+  # appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
 name: $(date:yyyy).$(Month)$(rev:.r).0
 
@@ -50,7 +50,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(appxPackageDir)'
-    ArtifactName: 'drop'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(appxPackageDir)'
+#     ArtifactName: 'drop'
