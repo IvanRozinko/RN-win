@@ -32,7 +32,7 @@ steps:
     version: '12.9.1'
 
 - script: choco install windows-sdk-10-version-1903-all
-- script: npm install
+- script: yarn install
 - script: npm config set prefix C:\Users\VssAdministrator\AppData\Roaming\npm
 - script: npm install -g react-native-cli
 
@@ -45,11 +45,9 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    vsVersion: '15.0'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageSigningEnabled=false'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    msbuildArchitecture: 'x64'
 
 - task: PublishBuildArtifacts@1
   inputs:
