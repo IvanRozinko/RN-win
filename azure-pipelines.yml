@@ -43,6 +43,7 @@ steps:
     feedsToUse: 'select'
 
 - task: VSBuild@1
+  continueOnError: true
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageSigningEnabled=false'
