@@ -19,6 +19,36 @@ steps:
 
 - task: NuGetToolInstaller@1
 
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: 'windows/*.sln'
+    feedsToUse: 'select'
+
+- task: DownloadSecureFile@1
+  name: mySecureFile
+  displayName: 'Get the pfx file certificat'
+  inputs:
+    secureFile: '$(signingCert.secureFilePath)'
+
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "Start adding the PFX file to the certificate store."
+
+      $pfxpath = '$(mySecureFile.secureFilePath)'
+      $password = '$(signingCert.password)'
+      
+      Add-Type -AssemblyName System.Security
+      $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
+      $cert.Import($pfxpath, $password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]"PersistKeySet")
+      $store = new-object system.security.cryptography.X509Certificates.X509Store -argumentlist "MY", CurrentUser
+      $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]"ReadWrite")
+      $store.Add($cert)
+      $store.Close()
+
+
 - task: VersionAPPX@2
   displayName: 'Version MSIX'
   inputs:
@@ -34,12 +64,6 @@ steps:
 - script: npm install
 - script: npm config set prefix C:\Users\VssAdministrator\AppData\Roaming\npm
 - script: npm install -g react-native-cli
-
-- task: NuGetCommand@2
-  inputs:
-    command: 'restore'
-    restoreSolution: 'windows/*.sln'
-    feedsToUse: 'select'
 
 - task: VSBuild@1
   continueOnError: true
