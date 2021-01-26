@@ -12,7 +12,7 @@ pool:
 
 variables:
   solution: 'windows/*.sln'
-  buildPlatform: 'x64'
+  buildPlatform: 'x86'
   buildConfiguration: 'Release'
   appxPackageDir: '$(Build.ArtifactStagingDirectory)\AppxPackages\\'
 
@@ -34,7 +34,7 @@ steps:
     version: '12.9.1'
 
 - script: choco install windows-sdk-10-version-1903-all
-- script: yarn install
+- script: npm install
 - script: npm config set prefix C:\Users\VssAdministrator\AppData\Roaming\npm
 - script: npm install -g react-native-cli
 
