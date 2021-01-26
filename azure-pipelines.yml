@@ -20,6 +20,8 @@ name: $(date:yyyy).$(Month)$(rev:.r).0
 
 steps:
 
+- task: NuGetToolInstaller@1
+
 - task: VersionAPPX@2
   displayName: 'Version MSIX'
   inputs:
