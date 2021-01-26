@@ -88,6 +88,13 @@ steps:
      /p:PackageCertificateKeyFile="$(mySecureFile.secureFilePath)"
      /p:PackageCertificatePassword="$(signingCert.password)"'
 
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(appxPackageDir)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**\bin\$(BuildConfiguration)\**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(appxPackageDir)'
