@@ -11,10 +11,7 @@ pool:
     vmImage: 'windows-latest'
 
 variables:
-  solution: 'windows/*.sln'
-  buildPlatform: 'x86'
-  buildConfiguration: 'Release'
-  appxPackageDir: '$(Build.ArtifactStagingDirectory)\AppxPackages\\'
+  - group: rn-win-vars
 
 name: $(date:yyyy).$(Month)$(rev:.r).0
 
