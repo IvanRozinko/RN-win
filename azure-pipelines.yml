@@ -54,5 +54,5 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(appxPackageDir)\artifacts'
+    PathtoPublish: '$(appxPackageDir)'
     ArtifactName: 'drop'
