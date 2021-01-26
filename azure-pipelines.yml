@@ -25,6 +25,22 @@ name: $(date:yyyy).$(Month)$(rev:.r).0
 
 steps:
 
+- task: VersionAPPX@2
+  displayName: 'Version MSIX'
+  inputs:
+    Path: '$(Build.SourcesDirectory)'
+    VersionNumber: '$(Build.BuildNumber)'
+    InjectVersion: true
+
+- task: UseNode@1
+  inputs:
+    version: '12.9.1'
+
+- script: choco install windows-sdk-10-version-1903-all
+- script: npm install
+- script: npm config set prefix C:\Users\VssAdministrator\AppData\Roaming\npm
+- script: npm install -g react-native-cli
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -55,23 +71,6 @@ steps:
       $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]"ReadWrite")
       $store.Add($cert)
       $store.Close()
-
-
-- task: VersionAPPX@2
-  displayName: 'Version MSIX'
-  inputs:
-    Path: '$(Build.SourcesDirectory)'
-    VersionNumber: '$(Build.BuildNumber)'
-    InjectVersion: true
-
-- task: UseNode@1
-  inputs:
-    version: '12.9.1'
-
-- script: choco install windows-sdk-10-version-1903-all
-- script: npm install
-- script: npm config set prefix C:\Users\VssAdministrator\AppData\Roaming\npm
-- script: npm install -g react-native-cli
 
 - task: VSBuild@1
   continueOnError: true
