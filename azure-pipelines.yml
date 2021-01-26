@@ -80,8 +80,8 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
      /p:AppxPackageDir="$(appxPackageDir)"
-     /p:AppxBundle=Always
-     /p:UapAppxPackageBuildMode=StoreUpload
+     /p:AppxBundle=Never
+     /p:UapAppxPackageBuildMode=SideloadOnly
      /p:AppxPackageSigningEnabled=true
      /p:PackageCertificateThumbprint="$(signingCert.thumbprint)" 
      /p:PackageCertificateKeyFile="$(mySecureFile.secureFilePath)"
@@ -99,12 +99,12 @@ steps:
     PathtoPublish: '$(appxPackageDir)'
     ArtifactName: 'drop'
 
-- task: AppCenterDistribute@3
-  inputs:
-    serverEndpoint: 'AzureDevopsRNWIN'
-    appSlug: '$(appSlug)'
-    appFile: '$(appxPackageDir)*.appxupload'
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'New release!'
-    destinationType: 'groups'
-    distributionGroupId: '$(distributionGroupId)'
+# - task: AppCenterDistribute@3
+#   inputs:
+#     serverEndpoint: 'AzureDevopsRNWIN'
+#     appSlug: '$(appSlug)'
+#     appFile: '$(appxPackageDir)*.appxupload'
+#     releaseNotesOption: 'input'
+#     releaseNotesInput: 'New release!'
+#     destinationType: 'groups'
+#     distributionGroupId: '$(distributionGroupId)'
