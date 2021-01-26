@@ -12,6 +12,14 @@ pool:
 
 variables:
   - group: rn-win-vars
+  - name: solution
+    value: 'windows/*.sln'
+  - name: buildPlatform
+    value: 'x64'
+  - name: buildConfiguration
+    value: 'Release'
+  - name: appxPackageDir
+    value: '$(Build.ArtifactStagingDirectory)\AppxPackages\\'
 
 name: $(date:yyyy).$(Month)$(rev:.r).0
 
@@ -69,9 +77,16 @@ steps:
   continueOnError: true
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Never /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageSigningEnabled=false'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)"
+     /p:AppxPackageDir="$(appxPackageDir)"
+     /p:AppxBundle=Always
+     /p:UapAppxPackageBuildMode=StoreUpload
+     /p:AppxPackageSigningEnabled=true
+     /p:PackageCertificateThumbprint="$(signingCert.thumbprint)" 
+     /p:PackageCertificateKeyFile="$(mySecureFile.secureFilePath)"
+     /p:PackageCertificatePassword="$(signingCert.password)"'
 
 - task: PublishBuildArtifacts@1
   inputs:
