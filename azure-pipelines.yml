@@ -102,7 +102,7 @@ steps:
 
 - task: AppCenterDistribute@3
   inputs:
-    serverEndpoint: 'VSAC'
+    serverEndpoint: 'AzureDevopsRNWIN'
     appSlug: '$(appSlug)'
     appFile: '$(appxPackageDir)*.appxupload'
     releaseNotesOption: 'input'
