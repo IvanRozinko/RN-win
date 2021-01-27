@@ -99,12 +99,12 @@ steps:
     PathtoPublish: '$(appxPackageDir)'
     ArtifactName: 'drop'
 
-# - task: AppCenterDistribute@3
-#   inputs:
-#     serverEndpoint: 'AzureDevopsRNWIN'
-#     appSlug: '$(appSlug)'
-#     appFile: '$(appxPackageDir)*.appxupload'
-#     releaseNotesOption: 'input'
-#     releaseNotesInput: 'New release!'
-#     destinationType: 'groups'
-#     distributionGroupId: '$(distributionGroupId)'
+- task: AppCenterDistribute@3
+  inputs:
+    serverEndpoint: 'AzureDevopsRNWIN'
+    appSlug: '$(appSlug)'
+    appFile: '$(appxPackageDir)*.appx'
+    releaseNotesOption: 'input'
+    releaseNotesInput: 'New release!'
+    destinationType: 'groups'
+    distributionGroupId: '$(distributionGroupId)'
