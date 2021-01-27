@@ -99,11 +99,12 @@ steps:
     PathtoPublish: '$(appxPackageDir)'
     ArtifactName: 'drop'
 
+- script: tree/f
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'AzureDevopsRNWIN'
     appSlug: '$(appSlug)'
-    appFile: '$(appxPackageDir)*.appx'
+    appFile: '$(appxPackageDir)drop.zip'
     releaseNotesOption: 'input'
     releaseNotesInput: 'New release!'
     destinationType: 'groups'
